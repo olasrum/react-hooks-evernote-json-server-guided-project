@@ -10,18 +10,49 @@ import Instructions from "./Instructions";
           Then complete the rest of your app before attempting to
           refactor to get this Content component to work.
 */
-function Content() {
+function Content({notes, setNotes, editNote, onChangeNote, onEditNoteViewer, onEditNoteEditor, onCancelNote}) {
+
+  function handleDeleteNote(id) {
+    fetch(`http://localhost:3000/notes/${id}`, {
+      method: "DELETE",
+    })
+    .then((r) => r.json())
+    .then(() => {
+      const updatedNotes = notes.filter((note) => note.id !==id);
+      setNotes(updatedNotes)
+    })
+  }
+  
+ 
+  const displayNoteViewer = notes.map((note) => {
+    return <NoteViewer 
+              key={note.id}
+              note={note}
+              onEditNoteViewer={onEditNoteViewer}
+              onDeleteNote={handleDeleteNote}
+            />
+  });
+
   const getContent = () => {
-    if (false) {
-      return <NoteEditor />;
-    } else if (false) {
-      return <NoteViewer />;
+    if (editNote) {
+      return <NoteEditor 
+                note={editNote} 
+                onChangeNote={onChangeNote} 
+                onEditNoteEditor={onEditNoteEditor}
+                onCancelNote={onCancelNote}
+              />
+    } else if (!editNote) {
+      return displayNoteViewer
     } else {
-      return <Instructions />;
+      return <Instructions />
     }
   };
 
-  return <div className="master-detail-element detail">{getContent()}</div>;
+  return (
+      <div className="master-detail-element detail">
+      {getContent()}
+      </div>
+  )
 }
 
 export default Content;

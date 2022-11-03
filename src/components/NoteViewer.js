@@ -1,12 +1,21 @@
 import React from "react";
 
-function NoteViewer() {
+function NoteViewer({note, onEditNoteViewer, onDeleteNote}) { 
+  function handleEditClick() {
+    onEditNoteViewer(note)
+  }
+
+  function handleDeleteClick() {
+    onDeleteNote(note.id)
+  }
+
   return (
-    <>
-      <h2>Title</h2>
-      <p>Body</p>
-      <button>Edit</button>
-    </>
+    <div >
+      <h2>{note.title}</h2>
+      <p>{note.body}</p>
+      <button onClick={handleEditClick}>Edit</button>
+      <button onClick={handleDeleteClick}>Delete</button>
+    </div> 
   );
 }
 
