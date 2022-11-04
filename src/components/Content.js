@@ -10,26 +10,14 @@ import Instructions from "./Instructions";
           Then complete the rest of your app before attempting to
           refactor to get this Content component to work.
 */
-function Content({notes, setNotes, editNote, onChangeNote, onEditNoteViewer, onEditNoteEditor, onCancelNote}) {
+function Content({notes, editNote, onChangeNote, onDeleteNote, onEditNoteViewer, onEditNoteEditor, onCancelNote}) {
 
-  function handleDeleteNote(id) {
-    fetch(`http://localhost:3000/notes/${id}`, {
-      method: "DELETE",
-    })
-    .then((r) => r.json())
-    .then(() => {
-      const updatedNotes = notes.filter((note) => note.id !==id);
-      setNotes(updatedNotes)
-    })
-  }
-  
- 
   const displayNoteViewer = notes.map((note) => {
     return <NoteViewer 
               key={note.id}
               note={note}
               onEditNoteViewer={onEditNoteViewer}
-              onDeleteNote={handleDeleteNote}
+              onDeleteNote={onDeleteNote}
             />
   });
 

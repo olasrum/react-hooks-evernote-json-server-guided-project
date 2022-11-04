@@ -39,7 +39,6 @@ function NoteContainer() {
 
   
   function handleEditNoteEditor(editedNote) {
-    console.log(editedNote.id)
     const updatedNotes = notes.map((note) => 
     note.id === editedNote.id ? editedNote : note);
     setEditNote(editedNote)
@@ -51,6 +50,18 @@ function NoteContainer() {
     setEditNote(!editNote)
   };
 
+  function handleDeleteNote(id) {
+    fetch(`http://localhost:3000/notes/${id}`, {
+      method: "DELETE",
+    })
+    .then((r) => r.json())
+    .then(() => {
+      const updatedNotes = notes.filter((note) => note.id !==id)
+      setNotes(updatedNotes)
+      const deletedNotes = noteDetails.filter((note) => note.id !==id)
+      setNoteDetails(deletedNotes)
+    })
+  }
 
   const searchNotes = notes.filter((note) =>
   note.title.toLowerCase().includes(search.toLowerCase()));
@@ -67,8 +78,8 @@ function NoteContainer() {
           />
         <Content 
           notes={noteDetails} 
-          setNotes={setNotes}
           editNote={editNote}
+          onDeleteNote={handleDeleteNote}
           onChangeNote={handleChangeNote} 
           onEditNoteViewer={handleEditNoteViewer} 
           onEditNoteEditor={handleEditNoteEditor}
