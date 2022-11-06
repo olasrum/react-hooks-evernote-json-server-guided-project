@@ -1,12 +1,14 @@
 import React from "react";
 import NoteItem from "./NoteItem";
 
-function NoteList({notes, onShowNote}) {
+function NoteList({notes, editNote, onShowNote, onCancelNote}) {
   const displayNotes = notes.map((note) => {
     return <NoteItem 
               key={note.id}
               note={note}
-              onNoteClick={onShowNote}
+              editNote={editNote}
+              onShowNote={onShowNote}
+              onCancelNote={onCancelNote}
             />
   })
 

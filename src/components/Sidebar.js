@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import NoteList from "./NoteList";
 
-function Sidebar({notes, onShowNote, onAddNote}) {
+function Sidebar({notes, editNote, onShowNote, onAddNote, onCancelNote}) {
   const [addNew, setAddNew] = useState({
     title: "Default title",
     body: "Default body",
@@ -34,8 +34,10 @@ function Sidebar({notes, onShowNote, onAddNote}) {
     <div className="master-detail-element sidebar">
       <NoteList 
         notes={notes} 
+        editNote={editNote}
         onShowNote={onShowNote} 
         onChangeNote={handleChange} 
+        onCancelNote={onCancelNote}
         />
       <button onClick={handleNewClick}>New</button>
     </div>

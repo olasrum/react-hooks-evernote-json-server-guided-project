@@ -18,7 +18,6 @@ function NoteContainer() {
   }, [])
 
   function handleShowNote(showNote) {
-    console.log("handlesShowNote")
     const displayNoteDetails = noteDetails.find((note) => note.id === showNote.id);
        if (!displayNoteDetails) {
        setNoteDetails([showNote]);
@@ -72,9 +71,11 @@ function NoteContainer() {
       <div className="container">
         <Sidebar 
           notes={searchNotes} 
+          editNote={editNote}
           setNotes={setNotes} 
           onShowNote={handleShowNote} 
           onAddNote={handleAddNote}
+          onCancelNote={handleCancelNote}
           />
         <Content 
           notes={noteDetails} 

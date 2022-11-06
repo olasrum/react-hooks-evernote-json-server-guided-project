@@ -1,8 +1,12 @@
 import React from "react";
 
-function NoteItem({note, onNoteClick}) {
+function NoteItem({note, editNote, onShowNote, onCancelNote}) {
   function handleClick() {
-    onNoteClick(note)
+    if(editNote) {
+      return onCancelNote(note)
+    } else {
+      return onShowNote(note)
+    }  
   }
 
   return (
